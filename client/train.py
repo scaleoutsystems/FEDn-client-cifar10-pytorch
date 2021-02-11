@@ -51,7 +51,7 @@ if __name__ == '__main__':
         except yaml.YAMLError as e:
             raise(e)
 
-    from fedn.utils.pytorchmodel import PytorchModelHelper
+    from fedn.utils.pytorchhelper import PytorchHelper
     from models.pytorch_model import create_seed_model
 
     if settings['device'] == 'cuda' or settings['device'] == 'gpu':
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     print("device: ", device)
 
-    helper = PytorchModelHelper()
+    helper = PytorchHelper()
     model, loss, optimizer = create_seed_model()
     model.to(device)
     model.load_state_dict(np_to_weights(helper.load_model(sys.argv[1])))
