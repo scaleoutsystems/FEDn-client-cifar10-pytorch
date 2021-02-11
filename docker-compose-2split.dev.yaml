@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+  client1:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "cifar-client:latest"
+    build:
+      context: .
+    working_dir: /app
+    runtime: nvidia
+    command: /bin/bash -c "fedn run client -in fedn-network.yaml"
+    volumes:
+      - ./data/2clients/client0:/app/data
+  client2:
+    environment:
+      - GET_HOSTS_FROM=dns
+    image: "cifar-client:latest"
+    build:
+      context: .
+    working_dir: /app
+    runtime: nvidia
+    command: /bin/bash -c "fedn run client -in fedn-network.yaml"
+    volumes:
+      - ./data/2clients/client1:/app/data
+
+networks:
+  default:
+    external:
+      name: fedn_default
+
+
