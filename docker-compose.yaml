@@ -9,5 +9,5 @@ services:
     working_dir: /app
     command: /bin/bash -c "fedn run client -in fedn-network.yaml"
     volumes:
-      - ./data:/app/data
+      - ./data/10clients/client${INDEX}:/app/data
 
