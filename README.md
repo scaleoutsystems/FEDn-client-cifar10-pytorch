@@ -1,5 +1,7 @@
 # FEDn-client-cifar10-pytorch
-To complement the convergence graph for the NLP Keras/Tensorflow model provided in the main text, we here further demonstrate correctness and convergence of the default training protocol in FEDn, by training a PyTorch VGG16 model\cite{simonyan2015deep}, without the top layer (last 3 fully connected layers). We applied batch normalization between each Convolution and each ReLU activation layer. The CIFAR-10 dataset was evenly divided (i.i.d) into 10 clients. The clients trained the model for one epoch in every round with a batch size of 32, Adam optimizer with learning rate 0.001 and pre-processed image augmentation -- random crop with padding 4 and horizontal flip.
+This repository contains an example client (and compute package and seed file) for FEDn training of a PyTorch VGG16 model, without the top layer (last 3 fully connected layers). We have applied batch normalization between each Convolution and between each ReLU activation layer. 
+
+The CIFAR-10 dataset is evenly divided (IID) into 10 clients (but this can be easily modified). The clients train the model locally one epoch in every round with a batch size of 32, using the Adam optimizer with learning rate 0.001 and usign pre-processed image augmentation -- random crop with padding 4 and horizontal flip.
 
 ## Prepare the client configuration
 
