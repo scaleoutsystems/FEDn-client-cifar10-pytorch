@@ -11,7 +11,7 @@ If you first need to deploy a FEDn network, follow the instructions here: https:
 
 ## Configure and start a client usign cpu device
 
-The following will help you configure a client on a blank Ubuntu 20.04 LTS VM:    
+The following shell script will configure and start a client on a blank Ubuntu 20.04 LTS VM:    
 
 ```bash
 #!/bin/bash
@@ -37,7 +37,27 @@ python3 load_datasets.py
 # INDEX in 0...9 to select dataslice for this client.
 sudo INDEX=1 docker-compose -f docker-compose.yaml -f extra-hosts.yaml up 
 ```
-## Start a client on an Nvidia enabled host
-Make sure that you have appropriate Nvidia drivers installed on the host. To start a client using Nvidia GPU:
 
-<script src="https://gist.github.com/ahellander/41fe30e2938a8e63b08423b86c602245.js"></script>
+## Start a client on an Nvidia enabled host
+Make sure that you have appropriate Nvidia drivers installed on the host. 
+
+The follwing shell script will configure and start a client on a Ubuntu 20.04 LTS VM:
+
+```bash
+#!/bin/bash
+
+git clone https://github.com/scaleoutsystems/FEDn-client-cifar10-pytorch.git
+pushd FEDn-client-cifar10-pytorch
+
+# Download the dataset and split in 10 IID chunks. 
+sudo apt install python3-pip -y
+pip3 install -r requirements.txt
+python3 load_datasets.py 
+
+# Build docker image
+sudo docker build -f Dockerfile.gpu . -t cifar-client:latest
+
+# Modify below as needed for setup and data slice to use, set combiner extra host, then start client
+docker run --gpus all --add-host=combiner-aws-stockholm:13.53.197.49 -v /home/ubuntu/FEDn-client-cifar10-pytorch/data/10clients/client1:/app/data cifar-client /bin/bash -c "fedn run client -in fedn-network.yaml"
+@ahellander
+```
