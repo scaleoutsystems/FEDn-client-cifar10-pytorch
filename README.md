@@ -7,6 +7,8 @@ The CIFAR-10 dataset is evenly divided (IID) into 10 clients (but this can be ea
 
 To attach to a FEDn network, first edit 'fedn-network.yaml' to set the endpoint for the controller/reducer. Then edit 'extra-hosts.yaml' to provice dns resolution for each combiner in the FEDn network (cpu version).
 
+If you first need to deploy a FEDn network, follow the instructions here: https://github.com/scaleoutsystems/fedn 
+
 ## Configure and start a client usign cpu device
 
 The following will help you configure a client on a blank Ubuntu 20.04 LTS VM:    
