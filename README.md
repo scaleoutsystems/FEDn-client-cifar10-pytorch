@@ -13,8 +13,30 @@ If you first need to deploy a FEDn network, follow the instructions here: https:
 
 The following will help you configure a client on a blank Ubuntu 20.04 LTS VM:    
 
-<script src="https://gist.github.com/ahellander/9046dcd20e1721c7babca6fd8e646733.js"></script>
+```bash
+#!/bin/bash
 
+# Install Docker and docker-compose
+sudo apt-get update
+sudo apt-get install docker -y
+sudo apt-get install docker-compose -y
+sudo apt-get install git-lfs -y
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -G docker ubuntu
+
+git clone https://github.com/scaleoutsystems/FEDn-client-cifar10-pytorch.git
+pushd FEDn-client-cifar10-pytorch
+
+# Download data and create split in 10 IID chunks
+sudo apt install python3-pip -y
+pip3 install -r requirements.txt
+python3 load_datasets.py 
+
+# Make sure you have edited extra-hosts.yaml to provide hostname mappings for combiners
+# INDEX in 0...9 to select dataslice for this client.
+sudo INDEX=1 docker-compose -f docker-compose.yaml -f extra-hosts.yaml up 
+```
 ## Start a client on an Nvidia enabled host
 Make sure that you have appropriate Nvidia drivers installed on the host. To start a client using Nvidia GPU:
 
