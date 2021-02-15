@@ -59,5 +59,4 @@ sudo docker build -f Dockerfile.gpu . -t cifar-client:latest
 
 # Modify below as needed for setup and data slice to use, set combiner extra host, then start client
 docker run --gpus all --add-host=combiner-aws-stockholm:13.53.197.49 -v /home/ubuntu/FEDn-client-cifar10-pytorch/data/10clients/client1:/app/data cifar-client /bin/bash -c "fedn run client -in fedn-network.yaml"
-@ahellander
 ```
