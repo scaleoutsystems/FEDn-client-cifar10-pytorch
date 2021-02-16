@@ -9,7 +9,7 @@ To attach to a FEDn network, first edit 'fedn-network.yaml' to set the endpoint 
 
 If you first need to deploy a FEDn network, follow the instructions here: https://github.com/scaleoutsystems/fedn 
 
-## Configure and start a client usign cpu device
+## Configure and start a client using cpu device
 
 The following shell script will configure and start a client on a blank Ubuntu 20.04 LTS VM:    
 
